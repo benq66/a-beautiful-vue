@@ -1,0 +1,11 @@
+header {
+    color: white;
+    background: black;
+    width: 99px;
+}
+
+main {
+    color: darkred;
+    background: grey;
+    width: 200px;
+}
