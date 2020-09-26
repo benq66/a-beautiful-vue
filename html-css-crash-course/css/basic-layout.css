@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+}
+
+.header {
+    background-color: rgb(80, 78, 78);
+    padding: 25px 0;
+    margin-bottom: 25px;
+    color: white;
+    text-align: center;
+}
+
+.main {
+    width: 600px;
+    background-color: rgb(180, 180, 180);
+    border: 5px solid red;
+    padding: 35px;
+    margin: 0 auto;
+}
+
+.footer {
+    background-color: rgb(7, 7, 73);
+    text-align: center;
+    color: white;
+    padding: 25px 0;
+    margin-top: 25px;
+}

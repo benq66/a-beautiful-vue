@@ -1,0 +1,43 @@
+header {
+    color: white;
+    background: black;
+    width: 99px;
+    /* margin-top: 100px;
+    margin-right: 50px;
+    margin-bottom: 100px;
+    margin-left: 50px; */
+    margin: 100px 50px 100px 50px;
+    padding: 66px;
+    border-color: darkred;
+    border-width: 20px;
+    border-style: groove;
+    border-bottom-color: wheat;
+}
+
+main {
+    color: darkred;
+    background: grey;
+    width: 200px;
+    /* margin-top: 50px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+    margin-left: 100px; */
+    margin: 50px 100px;
+    padding: 20px 30px;
+    border: ridge 15px green;
+    border-right-style: dashed;
+    border-right-color: yellowgreen;
+}
+
+footer {
+    color: black;
+    background: lightblue;
+    margin: 77px;
+    padding: 150px 100px 30px;
+    border-bottom: solid darkmagenta 15px;
+    border-top: dotted white 15px;
+}
+
+nav {
+    margin: 65px 75px 100px;
+}
