@@ -1,4 +1,8 @@
-// Variables
+/*
+    ---
+    Variables
+    ---
+*/
 
 let firstName = "Andrew";
 // console.log(firstName);
@@ -12,7 +16,6 @@ let fullName = firstName + ", " + lastName;
 
 let day = 26;
 let isSeptember = true;
-
 
 // Challenge: It your Dog's Birthday!
 
@@ -28,4 +31,4 @@ let dogCurrentAge = 3;
 dogCurrentAge += 1;
 
 let dogAgeNextYear = dogCurrentAge + 1;
-console.log("Here is my dog, " + dogName + ". He is " + dogCurrentAge + " years old. Next year he will be " + dogAgeNextYear + " years old.")
+// console.log("Here is my dog, " + dogName + ". He is " + dogCurrentAge + " years old. Next year he will be " + dogAgeNextYear + " years old.")
