@@ -14,14 +14,14 @@ let example4 = 1;
 
 // Challenge. Try to guess the values that will be printed to the console
 
-example1 = false;  // false
-example2 = true;  // true
-example3 = null;  // false
-example4 = undefined;  // false
-let example5 = '';  // false
-let example6 = NaN;  // false
-let example7 = -5;  // true
-let example8 = 0;  // false
+example1 = false;  // false  v
+example2 = true;  // true  v
+example3 = null;  // false  v
+example4 = undefined;  // false  v
+let example5 = '';  // false  v
+let example6 = NaN;  // false  v
+let example7 = -5;  // true  v
+let example8 = 0;  // false  v
 
 console.log(Boolean(example1));
 console.log(Boolean(example2));
