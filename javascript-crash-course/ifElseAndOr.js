@@ -42,7 +42,7 @@ if (age <= 12) {
     console.log("teenager");
 } else {
     console.log("adult");
-}
+};
 
 // Challenge 2: Practice and or Operators
 
