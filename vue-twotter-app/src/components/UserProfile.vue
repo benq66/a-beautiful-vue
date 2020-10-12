@@ -83,11 +83,11 @@ export default {
   border: 1px solid #DFE3E8;
 }
 
-h1 {
+.user-profile__fullname {
   margin: 0;
 }
 
-h2 {
+.user-profile__username {
   margin: 0;
 }
 </style>
