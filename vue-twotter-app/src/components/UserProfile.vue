@@ -1,10 +1,25 @@
 <template>
   <div class="user-profile">
     <div class="user-profile__user-panel">
+      <div class="user-profile__admin-badge" v-if="user.isAdmin">
+        Admin
+      </div>
+      <div class="user-profile__star-badge" v-else-if="user.followers > 1000">
+        Star
+      </div>
+      <div class="user-profile__user-badge" v-else>
+        User
+      </div>
       <h1 class="user-profile__fullname">{{ fullName }}</h1>
       <h2 class="user-profile__username">@{{ user.username }}</h2>
       <div class="user-profile__follower-count">
         <strong>Followers:</strong> {{ followers }}
+      </div>
+    </div>
+    <div class="user-profile__twoots-wrapper">
+      <div class="user-profile__twoot" v-for="(twoot, index) in user.twoots" :key="index">
+        Twoot nr. {{ twoot.id }} <br>
+        "{{ twoot.content }}"
       </div>
     </div>
   </div>
@@ -30,6 +45,10 @@ export default {
         lastName: "Hvitt",
         email: "benq@benq.com",
         isAdmin: true,
+        twoots : [
+          { id: 1, content: "This is amazing!"},
+          { id: 2, content: "Totaly agree!"},
+        ],
       },
     };
   },
@@ -90,4 +109,22 @@ export default {
 .user-profile__username {
   margin: 0;
 }
+
+.user-profile__follower-count {
+  margin-top: 10px;
+}
+
+.user-profile__admin-badge {
+  background: rebeccapurple;
+  color: white;
+  border-radius: 5px;
+  margin-right: auto;
+  padding: 0 10px;
+  font-weight: bold;
+}
+
+.user-profile__twoot {
+  padding-bottom: 20px;
+}
+
 </style>
