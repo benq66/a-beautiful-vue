@@ -6,10 +6,10 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import UserProfile from './components/UserProfile.vue'
+import UserProfile from "./components/UserProfile.vue"
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     UserProfile,
   },

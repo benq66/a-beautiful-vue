@@ -1,28 +1,29 @@
 <template>
   <div class="user-profile">
-    <div class="user-profile__user-panel">
-      <div class="user-profile__admin-badge" v-if="user.isAdmin">
-        Admin
-      </div>
-      <div class="user-profile__star-badge" v-else-if="user.followers > 1000">
-        Star
-      </div>
-      <div class="user-profile__user-badge" v-else>
-        User
-      </div>
-      <h1 class="user-profile__fullname">{{ fullName }}</h1>
-      <h2 class="user-profile__username">@{{ user.username }}</h2>
-      <div class="user-profile__follower-count">
-        <strong>Followers:</strong> {{ followers }}
+    <div>
+      <p>User:</p>
+      <div class="user-profile__user-panel">
+        <div class="user-profile__admin-badge" v-if="user.isAdmin">
+          Admin
+        </div>
+        <div class="user-profile__star-badge" v-else-if="user.followers > 1000">
+          Star
+        </div>
+        <div class="user-profile__user-badge" v-else>
+          User
+        </div>
+        <h1 class="user-profile__fullname">{{ fullName }}</h1>
+        <h2 class="user-profile__username">@{{ user.username }}</h2>
+        <div class="user-profile__follower-count">
+          <strong>Followers:</strong> {{ followers }}
+        </div>
       </div>
     </div>
     <div class="user-profile__twoots-wrapper">
-      <div class="user-profile__twoot" v-for="(twoot, index) in user.twoots" :key="index">
-        Twoot nr. {{ twoot.id }} <br>
-        "{{ twoot.content }}"
-      </div>
+      <Twoots :twoots="user.twoots" />
     </div>
   </div>
+
   <!-- <button @click="followUser">
     Follow
   </button> -->
@@ -31,8 +32,13 @@
 </template>
 
 <script>
+import Twoots from "./Twoots.vue"
+
 export default {
-  name: 'UserProfile',
+  name: "UserProfile",
+  components: {
+    Twoots,
+  },
 
   // initial vars and objects
   data() {
@@ -45,9 +51,9 @@ export default {
         lastName: "Hvitt",
         email: "benq@benq.com",
         isAdmin: true,
-        twoots : [
-          { id: 1, content: "This is amazing!"},
-          { id: 2, content: "Totaly agree!"},
+        twoots: [
+          { id: 1, username: "benq", content: "This is amazing!"},
+          { id: 2, username: "benq", content: "Totaly agree!"},
         ],
       },
     };
@@ -81,7 +87,7 @@ export default {
   mounted() {
     this.followUser();
   },
-}
+};
 </script>
 
 <style>
@@ -95,7 +101,8 @@ export default {
 .user-profile__user-panel {
   display: flex;
   flex-direction: column;
-  margin-right: 50px;
+  margin-right: 100px;
+  margin-bottom: auto;
   padding: 20px;
   background-color: white;
   border-radius: 5px;
@@ -123,8 +130,7 @@ export default {
   font-weight: bold;
 }
 
-.user-profile__twoot {
-  padding-bottom: 20px;
+.user-profile__twoots-wrapper {
+  width: 90%;
 }
-
 </style>
