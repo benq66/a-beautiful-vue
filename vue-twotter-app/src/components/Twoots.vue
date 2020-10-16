@@ -1,7 +1,13 @@
 <template>
   <div class="twoots">
     <p>Twoots:</p>
-    <TwootItem class="user-profile__twoot" v-for="(twoot, index) in twoots" :key="index" :twoot="twoot" />
+    <TwootItem
+      class="user-profile__twoot"
+      v-for="(twoot, index) in twoots"
+      :key="index"
+      :twoot="twoot"
+      @toggle-favourite-twoot="emitToggleFavouriteTwoot"
+    />
   </div>
 </template>
 
@@ -19,6 +25,12 @@ import TwootItem from "./TwootItem.vue"
       twoots: {
         type: Object,
         required: true,
+      },
+    },
+
+    methods: {
+      emitToggleFavouriteTwoot(id) {
+        this.$emit("toggle-favourite-twoot", id);
       },
     }
   };

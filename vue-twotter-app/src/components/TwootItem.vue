@@ -1,10 +1,18 @@
 <template>
-  <div class="twoot-item">
+  <div class="twoot-item" @click="emitToggleFavouriteTwoot(twoot.id)">
     <div class="twoot-header">
-      #{{ twoot.id }} by @{{ twoot.username }}:
+      #{{ twoot.id }} by <strong>@{{ twoot.username }}</strong>:
     </div>
     <div class="twoot-content">
       "{{ twoot.content }}"
+    </div>
+    <div class="twoot-favourite-mark">
+      <div v-if="twoot.favourite === true">
+        ★
+      </div>
+      <div v-else>
+        ☆
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +27,12 @@ export default {
       required: true,
     },
   },
+
+  methods: {
+    emitToggleFavouriteTwoot(id) {
+      this.$emit("toggle-favourite-twoot", id);
+    }
+  }
 };
 </script>
 
@@ -36,5 +50,9 @@ export default {
 
   .twoot-item:hover {
     transform: scale(1.1, 1.1);
+  }
+
+  .twoot-favourite-mark {
+    font-size: 25px;
   }
 </style>

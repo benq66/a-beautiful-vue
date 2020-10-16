@@ -18,17 +18,14 @@
           <strong>Followers:</strong> {{ followers }}
         </div>
       </div>
+      <button class="user-profile__follow-user-button" @click="followUser">
+        Follow
+      </button>
     </div>
     <div class="user-profile__twoots-wrapper">
-      <Twoots :twoots="user.twoots" />
+      <Twoots :twoots="user.twoots" @toggle-favourite-twoot="toggleFavouriteTwoot"/>
     </div>
   </div>
-
-  <!-- <button @click="followUser">
-    Follow
-  </button> -->
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <!-- <HelloWorld msg="Hello World!"/> -->
 </template>
 
 <script>
@@ -52,8 +49,8 @@ export default {
         email: "benq@benq.com",
         isAdmin: true,
         twoots: [
-          { id: 1, username: "benq", content: "This is amazing!"},
-          { id: 2, username: "benq", content: "Totaly agree!"},
+          {id: 1, username: "benq", content: "This is amazing!", favourite: false},
+          {id: 2, username: "benq", content: "Totaly agree!", favourite: false},
         ],
       },
     };
@@ -81,6 +78,14 @@ export default {
     followUser() {
       this.followers++;
     },
+    // can be done with hashmap for better performance
+    toggleFavouriteTwoot(id) {
+      for (const [index, twoot] of this.user.twoots.entries()) {
+        if (twoot.id === id) {
+          this.user.twoots[index].favourite = !this.user.twoots[index].favourite;
+        }
+      }
+    },
   },
 
   // this will run whenever the page is first opened, similar to created()
@@ -101,7 +106,7 @@ export default {
 .user-profile__user-panel {
   display: flex;
   flex-direction: column;
-  margin-right: 100px;
+  margin-right: 80px;
   margin-bottom: auto;
   padding: 20px;
   background-color: white;
@@ -132,5 +137,10 @@ export default {
 
 .user-profile__twoots-wrapper {
   width: 90%;
+}
+
+.user-profile__follow-user-button {
+  margin: 15px 0 0 20px;
+  cursor: pointer;
 }
 </style>
