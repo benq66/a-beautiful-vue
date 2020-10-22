@@ -1,7 +1,7 @@
 <template>
   <div class="twoot-item" @click="emitToggleFavouriteTwoot(twoot.id)">
     <div class="twoot-header">
-      #{{ twoot.id }} by <strong>@{{ twoot.username }}</strong>:
+      <strong>@{{ twoot.username }}</strong>:
     </div>
     <div class="twoot-content">
       "{{ twoot.content }}"
@@ -37,22 +37,26 @@ export default {
 </script>
 
 <style>
-  .twoot-item {
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    border: 1px solid #DFE3E8;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: all 0.25s ease;
-  }
+.twoot-item {
+  margin-bottom: 20px;
+  padding: 20px 20px 10px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #DFE3E8;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
 
-  .twoot-item:hover {
-    transform: scale(1.1, 1.1);
-  }
+.twoot-item:hover {
+  transform: scale(1.1, 1.1);
+}
 
-  .twoot-favourite-mark {
-    font-size: 25px;
-  }
+.twoot-favourite-mark {
+  font-size: 25px;
+}
+
+.twoot-content {
+  margin-top: 3px;
+}
 </style>

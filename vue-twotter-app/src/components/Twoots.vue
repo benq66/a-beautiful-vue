@@ -37,5 +37,9 @@ import TwootItem from "./TwootItem.vue"
 </script>
 
 <style>
-
+.user-profile__twoot {
+  width: fit-content;
+  min-width: 25%;
+  max-width: 50%;
+}
 </style>
