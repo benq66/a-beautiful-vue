@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .twoot-item {
   margin-bottom: 20px;
   padding: 20px 20px 10px;
@@ -46,17 +46,17 @@ export default {
   box-sizing: border-box;
   cursor: pointer;
   transition: all 0.25s ease;
-}
 
-.twoot-item:hover {
-  transform: scale(1.1, 1.1);
-}
+  &:hover {
+    transform: scale(1.1, 1.1);
+  }
 
-.twoot-favourite-mark {
-  font-size: 25px;
-}
+  .twoot-favourite-mark {
+    font-size: 25px;
+  }
 
-.twoot-content {
-  margin-top: 3px;
+  .twoot-content {
+    margin-top: 3px;
+  }
 }
 </style>
