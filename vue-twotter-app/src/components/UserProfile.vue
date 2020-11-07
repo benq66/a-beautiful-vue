@@ -23,11 +23,12 @@
         Follow
       </button>
 
-      <div class="user-profile__new-twoot-form" :class="{ '--characters-limit-exceeded': newTwootCharacterCount > 180}">
-        <label class="user-profile__new-twoot-label" for="newTwoot"><strong>New Twoot</strong> ({{ newTwootCharacterCount }}/180)</label>
-        <form @submit.prevent="createNewTwoot">
-          <textarea class="user-profile__new-twoot-text-area" id="newTwoot" rows="4" v-model="newTwootContent"></textarea>
+    <div class="user-profile__new-twoot-form" :class="{'--characters-limit-exceeded': newTwootCharacterCount > 180}">
+      <label class="user-profile__new-twoot-label" for="newTwoot"><strong>New Twoot</strong> ({{ newTwootCharacterCount }}/180)</label>
+      <form @submit.prevent="createNewTwoot">
+        <textarea class="user-profile__new-twoot-text-area" id="newTwoot" rows="4" v-model="newTwootContent"></textarea>
 
+        <div class="user-profile__new-twoot-panel">
           <div class="user-profile__new-twoot-type">
             <label class="user-profile__new-twoot-label" for="newTwootType"><strong>Type: </strong></label>
             <select id="newTwootType" v-model="selectedTwootType">
@@ -35,13 +36,13 @@
                 {{ option.name }}
               </option>
             </select>
+            <button class="user-profile__new-twoot-submit-button">
+              Twoot!
+            </button>
           </div>
-
-          <button class="user-profile__new-twoot-submit-button">
-            Twoot!
-          </button>
-        </form>
-      </div>
+        </div>
+      </form>
+    </div>
     </div>
 
     <div class="user-profile__twoots-wrapper">
@@ -189,9 +190,9 @@ export default {
     margin-top: 40px;
     margin-bottom: auto;
     padding: 10px 20px 20px;
-    background-color: white;
-    border-radius: 5px;
-    border: 1px solid #DFE3E8;
+    // background-color: white;
+    // border-radius: 5px;
+    // border: 1px solid #DFE3E8;
 
     .user-profile__new-twoot-label {
       margin-bottom: 15px;
@@ -204,10 +205,19 @@ export default {
       margin-bottom: 15px;
     }
 
+    .user-profile__new-twoot-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 5%;
+      // width: 100%;
+      // background: white;
+    }
+
     .user-profile__new-twoot-submit-button {
-      margin: 15px 35% 0;
-      width: fit-content;
-      min-width: 30%;
+      margin: 0 120px;
+      // width: 100%;
+      // min-width: 30%;
     }
 
     &.--characters-limit-exceeded {
