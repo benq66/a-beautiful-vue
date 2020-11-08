@@ -28,11 +28,22 @@ import TwootItem from "./TwootItem.vue"
       },
     },
 
-    methods: {
-      emitToggleFavouriteTwoot(id) {
-        this.$emit("toggle-favourite-twoot", id);
-      },
+    // composition api
+    setup(props, ctx) {
+      function emitToggleFavouriteTwoot(id) {
+        ctx.emit("toggle-favourite-twoot", id);
+      }
+
+      return {
+        emitToggleFavouriteTwoot
+      }
     }
+
+    // methods: {
+    //   emitToggleFavouriteTwoot(id) {
+    //     this.$emit("toggle-favourite-twoot", id);
+    //   },
+    // }
   };
 </script>
 

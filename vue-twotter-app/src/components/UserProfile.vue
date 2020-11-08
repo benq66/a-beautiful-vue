@@ -3,19 +3,19 @@
     <div>
       <p>User:</p>
       <div class="user-profile__user-panel">
-        <div class="user-profile__admin-badge" v-if="user.isAdmin">
+        <div class="user-profile__admin-badge" v-if="state.user.isAdmin">
           Admin
         </div>
-        <div class="user-profile__star-badge" v-else-if="user.followers > 1000">
+        <div class="user-profile__star-badge" v-else-if="state.user.followers > 1000">
           Star
         </div>
         <div class="user-profile__user-badge" v-else>
           User
         </div>
         <h1 class="user-profile__fullname">{{ fullName }}</h1>
-        <h2 class="user-profile__username">@{{ user.username }}</h2>
+        <h2 class="user-profile__username">@{{ state.user.username }}</h2>
         <div class="user-profile__follower-count">
-          <strong>Followers:</strong> {{ followers }}
+          <strong>Followers:</strong> {{ state.followers }}
         </div>
       </div>
 
@@ -24,15 +24,17 @@
       </button>
 
     <div class="user-profile__new-twoot-form" :class="{'--characters-limit-exceeded': newTwootCharacterCount > 180}">
-      <label class="user-profile__new-twoot-label" for="newTwoot"><strong>New Twoot</strong> ({{ newTwootCharacterCount }}/180)</label>
+      <label class="user-profile__new-twoot-label" for="newTwoot">
+        <strong>New Twoot</strong> ({{ newTwootCharacterCount }}/180)
+      </label>
       <form @submit.prevent="createNewTwoot">
-        <textarea class="user-profile__new-twoot-text-area" id="newTwoot" rows="4" v-model="newTwootContent"></textarea>
+        <textarea class="user-profile__new-twoot-text-area" id="newTwoot" rows="4" v-model="state.newTwootContent"></textarea>
 
         <div class="user-profile__new-twoot-panel">
           <div class="user-profile__new-twoot-type">
             <label class="user-profile__new-twoot-label" for="newTwootType"><strong>Type: </strong></label>
-            <select id="newTwootType" v-model="selectedTwootType">
-              <option :value="option.value" v-for="(option, index) in twootTypes" :key="index">
+            <select id="newTwootType" v-model="state.selectedTwootType">
+              <option :value="option.value" v-for="(option, index) in state.twootTypes" :key="index">
                 {{ option.name }}
               </option>
             </select>
@@ -46,13 +48,14 @@
     </div>
 
     <div class="user-profile__twoots-wrapper">
-      <Twoots :twoots="user.twoots" @toggle-favourite-twoot="toggleFavouriteTwoot"/>
+      <Twoots :twoots="state.user.twoots" @toggle-favourite-twoot="toggleFavouriteTwoot"/>
     </div>
   </div>
 </template>
 
 <script>
 import Twoots from "./Twoots.vue"
+import { reactive, computed } from 'vue';
 
 export default {
   name: "UserProfile",
@@ -60,9 +63,9 @@ export default {
     Twoots,
   },
 
-  // initial vars and objects
-  data() {
-    return {
+  // composition api
+  setup() {
+    const state = reactive({
       newTwootContent: "",
       selectedTwootType: "instant",
       twootTypes : [
@@ -82,8 +85,70 @@ export default {
           {id: 1, username: "benq", content: "Totaly agree!", favourite: false},
         ],
       },
-    };
+    })
+
+    const newTwootCharacterCount = computed(() => state.newTwootContent.length)
+    const fullName = computed(() => `${state.user.firstName} ${state.user.lastName}`)
+
+    function followUser() {
+      state.followers++;
+    }
+
+    // can be done with hashmap for better performance
+    function toggleFavouriteTwoot(id) {
+      for (const [index, twoot] of state.user.twoots.entries()) {
+        if (twoot.id === id) {
+          state.user.twoots[index].favourite = !state.user.twoots[index].favourite;
+        }
+      }
+    }
+
+    function createNewTwoot() {
+      if (state.newTwootContent && state.selectedTwootType === "instant") {
+        state.user.twoots.unshift({
+          id: state.user.twoots.length + 1,
+          username: state.user.username,
+          content: state.newTwootContent,
+          favourite: false,
+        });
+        state.newTwootContent = "";
+      }
+    }
+
+    return {
+      state,
+      newTwootCharacterCount,
+      fullName,
+      followUser,
+      toggleFavouriteTwoot,
+      createNewTwoot,
+    }
   },
+
+  // initial vars and objects
+  // data() {
+  //   return {
+  //     newTwootContent: "",
+  //     selectedTwootType: "instant",
+  //     twootTypes : [
+  //       {value: "draft", name: "Draft"},
+  //       {value: "instant", name: "Instant Twoot"},
+  //     ],
+  //     followers: 0,
+  //     user: {
+  //       id: 1,
+  //       username: "benq",
+  //       firstName: "Benq",
+  //       lastName: "Hvitt",
+  //       email: "benq@benq.com",
+  //       isAdmin: true,
+  //       twoots: [
+  //         {id: 2, username: "benq", content: "This is amazing!", favourite: false},
+  //         {id: 1, username: "benq", content: "Totaly agree!", favourite: false},
+  //       ],
+  //     },
+  //   };
+  // },
 
   // watch for changes of component elements (vars, computed, etc)
   // and execute the code accordingly
@@ -96,41 +161,37 @@ export default {
   },
 
   // vars that compute dynamically based on their content
-  computed: {
-    newTwootCharacterCount() {
-      return this.newTwootContent.length;
-    },
-
-    fullName() {
-      return `${this.user.firstName} ${this.user.lastName}`;
-    },
-  },
+  // computed: {
+  //   fullName() {
+  //     return `${this.user.firstName} ${this.user.lastName}`;
+  //   },
+  // },
 
   // functions
-  methods: {
-    followUser() {
-      this.followers++;
-    },
-    // can be done with hashmap for better performance
-    toggleFavouriteTwoot(id) {
-      for (const [index, twoot] of this.user.twoots.entries()) {
-        if (twoot.id === id) {
-          this.user.twoots[index].favourite = !this.user.twoots[index].favourite;
-        }
-      }
-    },
-    createNewTwoot() {
-      if (this.newTwootContent && this.selectedTwootType === "instant") {
-        this.user.twoots.unshift({
-          id: this.user.twoots.length + 1,
-          username: this.user.username,
-          content: this.newTwootContent,
-          favourite: false,
-        });
-        this.newTwootContent = "";
-      }
-    },
-  },
+  // methods: {
+  //   followUser() {
+  //     this.followers++;
+  //   },
+  //   // can be done with hashmap for better performance
+  //   toggleFavouriteTwoot(id) {
+  //     for (const [index, twoot] of this.user.twoots.entries()) {
+  //       if (twoot.id === id) {
+  //         this.user.twoots[index].favourite = !this.user.twoots[index].favourite;
+  //       }
+  //     }
+  //   },
+  //   createNewTwoot() {
+  //     if (this.newTwootContent && this.selectedTwootType === "instant") {
+  //       this.user.twoots.unshift({
+  //         id: this.user.twoots.length + 1,
+  //         username: this.user.username,
+  //         content: this.newTwootContent,
+  //         favourite: false,
+  //       });
+  //       this.newTwootContent = "";
+  //     }
+  //   },
+  // },
 
   // this will run whenever the page is first opened, similar to created()
   mounted() {
