@@ -14,6 +14,7 @@
         </div>
         <h1 class="user-profile__fullname">{{ fullName }}</h1>
         <h2 class="user-profile__username">@{{ state.user.username }}</h2>
+        <!-- <h2>{{ userId }}</h2> -->
         <div class="user-profile__follower-count">
           <strong>Followers:</strong> {{ state.followers }}
         </div>
@@ -54,8 +55,11 @@
 </template>
 
 <script>
-import Twoots from "./Twoots.vue"
+import Twoots from "@/components/Twoots.vue";
 import { reactive, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { users } from '@/assets/users.js';
+
 
 export default {
   name: "UserProfile",
@@ -65,6 +69,9 @@ export default {
 
   // composition api
   setup() {
+    const route = useRoute();
+    const userId = computed(() => route.params.userId)
+
     const state = reactive({
       newTwootContent: "",
       selectedTwootType: "instant",
@@ -73,22 +80,23 @@ export default {
         {value: "instant", name: "Instant Twoot"},
       ],
       followers: 0,
-      user: {
-        id: 1,
-        username: "benq",
-        firstName: "Benq",
-        lastName: "Hvitt",
-        email: "benq@benq.com",
-        isAdmin: true,
-        twoots: [
-          {id: 2, username: "benq", content: "This is amazing!", favourite: false},
-          {id: 1, username: "benq", content: "Totaly agree!", favourite: false},
-        ],
-      },
+      // user: {
+      //   id: 1,
+      //   username: "benq",
+      //   firstName: "Benq",
+      //   lastName: "Hvitt",
+      //   email: "benq@benq.com",
+      //   isAdmin: true,
+      //   twoots: [
+      //     {id: 2, username: "benq", content: "This is amazing!", favourite: false},
+      //     {id: 1, username: "benq", content: "Totaly agree!", favourite: false},
+      //   ],
+      // },
+      user: users[userId.value - 1] || users[0],
     })
 
     const newTwootCharacterCount = computed(() => state.newTwootContent.length)
-    const fullName = computed(() => `${state.user.firstName} ${state.user.lastName}`)
+    const fullName = computed(() => `${state.user.firstname} ${state.user.lastname}`)
 
     function followUser() {
       state.followers++;
@@ -122,6 +130,7 @@ export default {
       followUser,
       toggleFavouriteTwoot,
       createNewTwoot,
+      userId,
     }
   },
 

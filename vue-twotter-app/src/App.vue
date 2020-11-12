@@ -1,27 +1,30 @@
 <template>
   <div id="app">
     <nav>
-      <div class="navigation__logo">
-        Twotter
-      </div>
+      <router-link to="/">
+        <div class="navigation__logo">
+          Twotter
+        </div>
+      </router-link>
       <div class="navigation__user">
         {{ state.user.username }}
       </div>
     </nav>
-    <UserProfile />
+    <!-- <UserProfile /> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import UserProfile from "./components/UserProfile.vue"
+// import UserProfile from "./views/UserProfile.vue"
 import { reactive } from 'vue'
 
 export default {
   name: "App",
-  components: {
-    UserProfile,
-  },
+  // components: {
+  //   UserProfile,
+  // },
 
   // composition api
   setup () {
